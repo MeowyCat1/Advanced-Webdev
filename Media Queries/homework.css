@@ -1,0 +1,40 @@
+@media (orientation: landscape) {
+    .landscape {
+        font-style: italic;
+    }
+}
+@media (orientation: portrait) {
+    .portrait {
+        font-style: italic;
+    }
+}
+
+.square {display: none;}
+@media (aspect-ratio: 1/1) {
+    .square {
+        display: inline;
+        outline: 1px black solid;
+        width: 50%;
+        height: 50%;
+    }
+}
+
+.pointer {
+    display: none;
+}
+.scriptp {
+    display: none;
+}
+
+@media (pointer: fine) {
+    .pointer {
+        display: inline;
+    }
+};
+
+@media (scripting: enabled) {
+    /* Not working for some reason */
+    .scriptp {
+        display: inline;
+    }
+}
