@@ -1,0 +1,13 @@
+.flex {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    div {
+        background-color: lightblue;
+        border-radius: 5pt;
+        font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+        padding: 50pt;
+        margin: 4pt;
+        text-align: center;
+    }
+}
