@@ -34,7 +34,7 @@
             let donebutton = document.createElement("button")
             donebutton.innerText = "Done"
             donebutton.className = "theme-info btn-solid ms-auto"
-            donebutton.onclick = () => {}
+            donebutton.onclick = () => {if (span.crossed==true) {span.crossed = false; span.style = ""} else {span.style = "text-decoration: line-through;"; span.crossed=true}}
             span.innerText = stringtoadd
             span.className="m-8"
             li.appendChild(span)
