@@ -5,18 +5,64 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@6.0.0-alpha.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-B/GM4XqrwHnWXNOWMbloTmrYXZg10cakYGmpfsR/bbzQ6JAJI4ihuyADKLnBgrCe" crossorigin="anonymous">
     <script type="module" src="https://cdn.jsdelivr.net/npm/bootstrap@6.0.0-alpha.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-1a/pXj49ZQ1aHEmrJ+gMw1otqoVsYwlEnlD8mIfY2TV03r20Y0CN7uqx1tQogjPL" crossorigin="anonymous"></script>
+        <script type="module">
+            import { MyQuiz } from "./quiz.js"
+            import "https://code.jquery.com/jquery-4.0.0.min.js"
+            let alreadycompleted = false
+            let quiz = new MyQuiz()
+            let nextquestion = quiz.getcurrentquestion()
+            let time = 60
+            function ticktime() {
+                $("#time").text(time)
+                time--
+                setTimeout(ticktime, 1000)
+
+            }
+            ticktime()
+            $("#question").text(nextquestion.question)
+            $("#opt1").text(nextquestion.option1)
+            $("#opt2").text(nextquestion.option2)
+            $("#opt3").text(nextquestion.option3)
+            $("#opt4").text(nextquestion.option4)
+            $("#current-question").text(quiz.currentquestion + 1)
+            $("#total-questions").text(quiz.lengthofquestions)
+
+            window.answer = function(number) {
+                let correct = quiz.answerquestion(number)
+                if (!alreadycompleted) {
+                    if (correct) {
+                        $(`#opt${number}`).removeClass("theme-inverse").addClass("theme-success")
+                        alreadycompleted = true
+                    }
+                    else {
+                        $(`#opt${number}`).removeClass("theme-inverse").addClass("theme-danger")
+                    }
+                }
+            }
+            window.nextquestion = function() {
+            let nextquestion = quiz.getcurrentquestion()
+            $("#question").text(nextquestion.question)
+            $("#opt1").text(nextquestion.option1).removeClass("theme-danger").removeClass("theme-success").addClass("theme-inverse")
+            $("#opt2").text(nextquestion.option2).removeClass("theme-danger").removeClass("theme-success").addClass("theme-inverse")
+            $("#opt3").text(nextquestion.option3).removeClass("theme-danger").removeClass("theme-success").addClass("theme-inverse")
+            $("#opt4").text(nextquestion.option4).removeClass("theme-danger").removeClass("theme-success").addClass("theme-inverse")
+            $("#current-question").text(quiz.currentquestion + 1)
+            $("#total-questions").text(quiz.lengthofquestions)
+            alreadycompleted = false
+            }
+        </script>
     <title>Quiz App</title>
 </head>
     <body style="background-color: rgb(2, 123, 253); width: 100%;" class="d-flex justify-content-center">
     <div style="align-self: center;" class="card m-5 rounded-3 container">
         <div class="card-body">
-            <div class="d-inline-flex"><h2 class="card-title">Quiz App</h2><div class="ms-auto bg-muted-primary p-3 m-2 rounded-2"><span>Time Left </span><span class="bg-black fg-white p-1 rounded-2">08</span></div></div>
+            <div class="d-inline-flex"><h2 class="card-title">Quiz App</h2><div class="ms-auto bg-muted-primary p-3 m-2 rounded-2"><span>Time Left </span><span id="time" class="bg-black fg-white p-1 rounded-2">08</span></div></div>
         <hr class="border">
             <h3 id="question">This is the question</h3>
-            <button id="opt1" class="btn rounded-2 w-100 border d-flex justify-content-start" onclick="answer(1)">Option 1</button>
-            <button id="opt2" class="btn rounded-2 w-100 border d-flex justify-content-start" onclick="answer(2)">Option 2</button>
-            <button id="opt3" class="btn rounded-2 w-100 border d-flex justify-content-start" onclick="answer(3)">Option 3</button>
-            <button id="opt4" class="btn rounded-2 w-100 border d-flex justify-content-start" onclick="answer(4)">Option 4</button>
+            <button id="opt1" class="theme-inverse btn-subtle rounded-2 w-100 d-flex justify-content-start" onclick="answer(1)">Option 1</button>
+            <button id="opt2" class="theme-inverse btn-subtle rounded-2 w-100 d-flex justify-content-start" onclick="answer(2)">Option 2</button>
+            <button id="opt3" class="theme-inverse btn-subtle rounded-2 w-100 d-flex justify-content-start" onclick="answer(3)">Option 3</button>
+            <button id="opt4" class="theme-inverse btn-subtle rounded-2 w-100 d-flex justify-content-start" onclick="answer(4)">Option 4</button>
             <hr class="border">
             <div class="d-inline-flex w-100">
                 <span><strong id="current-question">1</strong> of <strong id="total-questions">x</strong> Questions</span>
@@ -24,7 +70,5 @@
             </div>
         </div>
     </div>
-    <script>
-    </script>
 </body>
 </html>
